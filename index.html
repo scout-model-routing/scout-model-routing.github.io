@@ -1,0 +1,780 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>SCOUT</title>
+
+    <meta content="SCOUT: Score-Conditioned Optimal Utility Targeting for routing Image-to-3D models for cost-aware robotic manipulation."
+        name="description" />
+    <meta content="SCOUT: Routing Image-to-3D Models for Cost-Aware Robotic Manipulation" property="og:title" />
+    <meta content="SCOUT: Score-Conditioned Optimal Utility Targeting for routing Image-to-3D models for cost-aware robotic manipulation."
+        property="og:description" />
+    <meta property="og:type" content="website" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+    <div class="section">
+        <div class="container">
+
+            <!-- ============================================================ -->
+            <!-- Title + Authors -->
+            <!-- ============================================================ -->
+            <h1 class="title">SCOUT</h1>
+            <h1 class="subheader">Which Reconstruction Model Should a Robot Use?<br>
+                Routing Image-to-3D Models for Cost-Aware Robotic Manipulation</h1>
+            <!-- <h3 class="title is-3 publication-venue">CVPR 2026</h3> -->
+
+            <div class="publication-authors" style="font-size:1.25rem;">
+                <!-- TODO: Update author names, links, and affiliations -->
+                <span class="author-block">
+                    <a href="#" target="_blank">Akash Anand</a>,</span>
+                <span class="author-block">
+                    <a href="https://skymanaditya1.github.io/" target="_blank">Aditya Agarwal</a>,</span>
+                <span class="author-block">
+                    <a href="https://www.csail.mit.edu/person/leslie-kaelbling" target="_blank">Leslie Pack Kaelbling</a></span>
+            </div>
+            <br>
+            <div class="publication-authors" style="font-size:1.25rem;">
+                <span class="author-block">MIT CSAIL</span>
+            </div>
+            <br>
+
+            <!-- ============================================================ -->
+            <!-- Links (Paper, Code, arXiv) -->
+            <!-- ============================================================ -->
+            <div class="link-labels base-row">
+                <div class="base-col icon-col">
+                    <!-- TODO: Update paper link -->
+                    <a href="#" target="_blank" class="link-block">
+                        <img src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/5cab99df4998decfbf9e218e_paper-01.png"
+                            alt="paper" class="icon-img" /></a>
+                </div>
+                <div class="base-col icon-col">
+                    <!-- TODO: Update code link -->
+                    <a href="#" target="_blank">
+                        <img src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/5cae3b53b42ebb3dd4175a82_68747470733a2f2f7777772e69636f6e66696e6465722e636f6d2f646174612f69636f6e732f6f637469636f6e732f313032342f6d61726b2d6769746875622d3235362e706e67.png"
+                            alt="GitHub" class="icon-img github-img-icon" /></a>
+                </div>
+                <div class="base-col icon-col">
+                    <!-- TODO: Update arXiv link -->
+                    <a href="#" target="_blank" class="link-block">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/ArXiv_web.svg/250px-ArXiv_web.svg.png"
+                            alt="arXiv" class="icon-img arxiv-img-icon" /></a>
+                </div>
+            </div>
+            <div class="link-labels base-row">
+                <div class="base-col icon-col">
+                    <strong class="link-labels-text">Paper</strong>
+                </div>
+                <div class="base-col icon-col">
+                    <strong class="link-labels-text">Code</strong>
+                </div>
+                <div class="base-col icon-col">
+                    <strong class="link-labels-text">arXiv</strong>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- Teaser -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Overview</h1>
+            </div>
+            <h1 class="tldr">
+                <b>TL;DR</b>:
+                <u>SCOUT</u> selects the best 3D reconstruction model for each input image,
+                balancing quality against cost constraints like latency and memory.
+            </h1>
+            <br>
+            <img id="pipeline-img" src="./static/images/teaser/scout-teaser-v6.png" alt="SCOUT teaser" />
+
+            <!-- ============================================================ -->
+            <!-- Experiments Carousel -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Experiments</h1>
+            </div>
+            <nav>
+                <div class="carousel-slider-wrapper">
+                    <div class="carousel-slider">
+
+                        <!-- Experiment 1 -->
+                        <div class="experiment-slide">
+                            <div class="experiment-columns">
+                                <div class="experiment-side">
+                                    <h3 class="experiment-label failure-label">Suboptimal Model</h3>
+                                    <div class="video-with-overlay">
+                                        <video loop playsinline muted autoplay>
+                                            <source src="./static/images/main_experiment/1/failure.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="input-overlay-wrapper">
+                                            <img src="./static/images/main_experiment/1/input.png" alt="Input" />
+                                            <span>Input Image</span>
+                                        </div>
+                                    </div>
+                                    <div class="recon-gt-row">
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/1/failure_recon.gif" alt="Reconstruction" />
+                                            <span class="recon-gt-label">Grasps on Reconstruction</span>
+                                        </div>
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/1/failure_gt.gif" alt="Ground Truth" />
+                                            <span class="recon-gt-label">Grasps on Ground Truth</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="experiment-side">
+                                    <h3 class="experiment-label success-label">SCOUT's Selection</h3>
+                                    <div class="video-with-overlay">
+                                        <video loop playsinline muted autoplay>
+                                            <source src="./static/images/main_experiment/1/success.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="recon-gt-row">
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/1/success_recon.gif" alt="Reconstruction" />
+                                            <span class="recon-gt-label">Grasps on Reconstruction</span>
+                                        </div>
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/1/success_gt.gif" alt="Ground Truth" />
+                                            <span class="recon-gt-label">Grasps on Ground Truth</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experiment 2 -->
+                        <div class="experiment-slide">
+                            <div class="experiment-columns">
+                                <div class="experiment-side">
+                                    <h3 class="experiment-label failure-label">Suboptimal Model</h3>
+                                    <div class="video-with-overlay">
+                                        <video loop playsinline muted autoplay>
+                                            <source src="./static/images/main_experiment/2/failure.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="input-overlay-wrapper">
+                                            <img src="./static/images/main_experiment/2/input.png" alt="Input" />
+                                            <span>Input Image</span>
+                                        </div>
+                                    </div>
+                                    <div class="recon-gt-row">
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/2/failure_recon.gif" alt="Reconstruction" />
+                                            <span class="recon-gt-label">Grasps on Reconstruction</span>
+                                        </div>
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/2/failure_gt.gif" alt="Ground Truth" />
+                                            <span class="recon-gt-label">Grasps on Ground Truth</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="experiment-side">
+                                    <h3 class="experiment-label success-label">SCOUT's Selection</h3>
+                                    <div class="video-with-overlay">
+                                        <video loop playsinline muted autoplay>
+                                            <source src="./static/images/main_experiment/2/success.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="recon-gt-row">
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/2/success_recon.gif" alt="Reconstruction" />
+                                            <span class="recon-gt-label">Grasps on Reconstruction</span>
+                                        </div>
+                                        <div class="recon-gt-item">
+                                            <img src="./static/images/main_experiment/2/success_gt.gif" alt="Ground Truth" />
+                                            <span class="recon-gt-label">Grasps on Ground Truth</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-button left" type="button">&lt;</button>
+                    <button class="carousel-button right" type="button">&gt;</button>
+                </div>
+            </nav>
+
+
+            <!-- ============================================================ -->
+            <!-- Abstract -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Abstract</h1>
+                <p class="paragraph">
+                    Robotic manipulation tasks require 3D mesh reconstructions of varying quality: dexterous manipulation
+                    demands fine-grained surface detail, while collision-free motion planning tolerates coarser
+                    representations. Multiple reconstruction methods offer different cost-quality tradeoffs, from
+                    Image-to-3D models&mdash;whose output quality depends heavily on the input viewpoint&mdash;to
+                    view-invariant methods such as structured light scanning. Querying all models is computationally
+                    prohibitive, motivating per-input model selection. We propose SCOUT, a novel routing framework that
+                    decouples reconstruction scores into two components: (1) the relative performance of
+                    viewpoint-dependent models, captured by a learned probability distribution, and (2) the overall image
+                    difficulty, captured by a scalar partition function estimate. As the learned network operates only
+                    over the viewpoint-dependent models, view-invariant pipelines can be added, removed, or reconfigured
+                    without retraining. SCOUT also supports arbitrary cost constraints at inference time, accommodating
+                    the multi-dimensional cost constraints common in robotics. We evaluate on the Google Scanned Objects,
+                    BigBIRD, and YCB datasets under multiple mesh quality metrics, demonstrating consistent improvements
+                    over routing baselines adapted from the LLM literature across various cost constraints.
+                </p>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <!-- Architecture -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Architecture</h1>
+                <!-- TODO: Add architecture figure or animated video -->
+                <video autoplay loop muted playsinline style="width:100%;">
+                    <source src="./static/images/architecture/architecture_cropped_v2.mp4" type="video/mp4">
+                </video>
+                <p class="paragraph">
+                    SCOUT decouples reconstruction scores into two interpretable components: the relative performance of
+                    viewpoint-dependent models (captured by a learned probability distribution) and the overall difficulty
+                    of the input image (captured by a scalar partition function estimate). This decoupling stabilizes
+                    training and provides a key scalability advantage: the learned network predicts only over the
+                    viewpoint-dependent models, so its size and training procedure are entirely independent of the
+                    view-invariant methods.
+                </p>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <!-- Results -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Results</h1>
+                <p class="paragraph">
+                    Click a thumbnail below to view interactive 3D reconstructions
+                    from each candidate model alongside the ground truth.
+                </p>
+            </div>
+
+            <!-- 2x2 grid + GT to the right -->
+            <div class="results-main">
+                <div class="results-top">
+                    <div class="results-cell">
+                        <h3 class="results-label">Hunyuan3D</h3>
+                        <model-viewer class="results-viewer" id="viewer-hunyuan"
+                            src="./static/images/reconstructions/2/hunyuan_recon.glb"
+                            camera-controls touch-action="pan-y" auto-rotate
+                            camera-orbit="45deg 55deg auto"></model-viewer>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">InstantMesh</h3>
+                        <model-viewer class="results-viewer" id="viewer-instantmesh"
+                            src="./static/images/reconstructions/2/instantmesh_recon.glb"
+                            camera-controls touch-action="pan-y" auto-rotate
+                            camera-orbit="45deg 55deg auto"></model-viewer>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">TRELLIS</h3>
+                        <model-viewer class="results-viewer" id="viewer-trellis"
+                            src="./static/images/reconstructions/2/trellis_recon.glb"
+                            camera-controls touch-action="pan-y" auto-rotate
+                            camera-orbit="45deg 55deg auto"></model-viewer>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">TripoSR</h3>
+                        <model-viewer class="results-viewer" id="viewer-triposr"
+                            src="./static/images/reconstructions/2/triposr_recon.glb"
+                            camera-controls touch-action="pan-y" auto-rotate
+                            camera-orbit="45deg 55deg auto"></model-viewer>
+                    </div>
+                </div>
+                <div class="results-gt-section">
+                    <h3 class="results-label">Ground Truth</h3>
+                    <model-viewer class="results-viewer results-gt" id="viewer-gt"
+                        src="./static/images/reconstructions/2/ground_truth.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+            </div>
+
+            <!-- Thumbnail slider -->
+            <div class="results-bottom">
+                <h3 class="results-label">Select an input image</h3>
+                <div class="results-thumb-area">
+                    <button class="results-arrow" onclick="resultsSlide(-1)">&#8249;</button>
+                    <div class="results-thumb-scroll" id="results-thumb-scroll">
+                        <button class="results-thumb active-thumb" onclick="selectObject(0)"><img src="./static/images/reconstructions/images/2.png" /><span>Tomato Soup Can</span></button>
+                        <button class="results-thumb" onclick="selectObject(1)"><img src="./static/images/reconstructions/images/10.png" /><span>Cup (vC)</span></button>
+                        <button class="results-thumb" onclick="selectObject(2)"><img src="./static/images/reconstructions/images/8.png" /><span>Marble</span></button>
+                        <button class="results-thumb" onclick="selectObject(3)"><img src="./static/images/reconstructions/images/1.png" /><span>Chef Can</span></button>
+                        <button class="results-thumb" onclick="selectObject(4)"><img src="./static/images/reconstructions/images/3.png" /><span>Potted Meat</span></button>
+                        <button class="results-thumb" onclick="selectObject(5)"><img src="./static/images/reconstructions/images/9.png" /><span>Cup (vB)</span></button>
+                        <button class="results-thumb" onclick="selectObject(6)"><img src="./static/images/reconstructions/images/6.png" /><span>Tennis Ball</span></button>
+                        <button class="results-thumb" onclick="selectObject(7)"><img src="./static/images/reconstructions/images/7.png" /><span>Brick</span></button>
+                        <button class="results-thumb" onclick="selectObject(8)"><img src="./static/images/reconstructions/images/5.png" /><span>Power Drill</span></button>
+                        <button class="results-thumb" onclick="selectObject(9)"><img src="./static/images/reconstructions/images/4.png" /><span>Spatula</span></button>
+                    </div>
+                    <button class="results-arrow" onclick="resultsSlide(1)">&#8250;</button>
+                </div>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <!-- Evaluations -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Evaluations</h1>
+                <p class="paragraph">
+                    We evaluate SCOUT on the Google Scanned Objects (GSO) and YCB+BigBIRD datasets across multiple mesh
+                    quality metrics, lighting conditions, and viewpoints.
+                </p>
+
+
+                <p class="paragraph">
+                    Lighting conditions include:
+                </p>
+                <div class="eval-examples">
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/lighting_styles/flash.png" alt="Flash lighting" />
+                        <span><b>Flash</b> Lighting</span>
+                    </div>
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/lighting_styles/real.png" alt="Realistic lighting" />
+                        <span><b>Realistic</b></span>
+                    </div>
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/lighting_styles/surround.png" alt="Surround lighting" />
+                        <span><b>Surround</b> Lighting</span>
+                    </div>
+                </div>
+
+                <p class="paragraph">
+                    Viewpoints include (in addition to many others):
+                </p>
+                <div class="eval-examples">
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/views/corner_nondegenerate.png" alt="Corner view" />
+                        <span><b>Corner</b> (non-degenerate)</span>
+                    </div>
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/views/frontal_degenerate.png" alt="Frontal view" />
+                        <span><b>Frontal</b> (degenerate)</span>
+                    </div>
+                    <div class="eval-example">
+                        <img src="./static/images/evaluations/views/top-down_degenerate.png" alt="Top-down view" />
+                        <span><b>Top-down</b> (degenerate)</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <!-- Downstream Tasks -->
+            <!-- ============================================================ -->
+            <div class="base-row add-top-padding">
+                <h1>Enabling Downstream Robotic Tasks</h1>
+                <p class="paragraph">
+                    SCOUT's per-input model selection translates to measurable gains in downstream robotic tasks.
+                    We validate through grasp proposal evaluation, dexterous manipulation in simulation,
+                    and real-world pick-and-place on a Franka Panda robot.
+                </p>
+            </div>
+
+            <div class="base-row add-top-padding">
+                <h2>Grasp Collisions</h2>
+                <p class="paragraph">
+                    Grasps generated on each reconstruction are evaluated on the ground-truth mesh.
+                    Green grasps are collision-free; red grasps collide with the object.
+                </p>
+            </div>
+
+            <!-- Grasp 1x4 row -->
+            <div class="grasps-row">
+                <div class="results-cell">
+                    <h3 class="results-label">Hunyuan3D</h3>
+                    <model-viewer class="results-viewer" id="grasp-hunyuan"
+                        src="./static/images/grasps_gt/2/hunyuan_gt_grasps.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+                <div class="results-cell">
+                    <h3 class="results-label">InstantMesh</h3>
+                    <model-viewer class="results-viewer" id="grasp-instantmesh"
+                        src="./static/images/grasps_gt/2/instantmesh_gt_grasps.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+                <div class="results-cell">
+                    <h3 class="results-label">TRELLIS</h3>
+                    <model-viewer class="results-viewer" id="grasp-trellis"
+                        src="./static/images/grasps_gt/2/trellis_gt_grasps.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+                <div class="results-cell">
+                    <h3 class="results-label">TripoSR</h3>
+                    <model-viewer class="results-viewer" id="grasp-triposr"
+                        src="./static/images/grasps_gt/2/triposr_gt_grasps.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+            </div>
+
+            <!-- Grasp thumbnail slider -->
+            <div class="results-bottom">
+                <h3 class="results-label">Select an input image</h3>
+                <div class="results-thumb-area">
+                    <button class="results-arrow" onclick="graspSlide(-1)">&#8249;</button>
+                    <div class="results-thumb-scroll" id="grasp-thumb-scroll">
+                        <button class="results-thumb grasp-thumb active-grasp-thumb" onclick="selectGraspObject(0)"><img src="./static/images/reconstructions/images/2.png" /><span>Tomato Soup Can</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(1)"><img src="./static/images/reconstructions/images/10.png" /><span>Cup (vC)</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(2)"><img src="./static/images/reconstructions/images/8.png" /><span>Marble</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(3)"><img src="./static/images/reconstructions/images/1.png" /><span>Chef Can</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(4)"><img src="./static/images/reconstructions/images/3.png" /><span>Potted Meat</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(5)"><img src="./static/images/reconstructions/images/9.png" /><span>Cup (vB)</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(6)"><img src="./static/images/reconstructions/images/6.png" /><span>Tennis Ball</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(7)"><img src="./static/images/reconstructions/images/7.png" /><span>Brick</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(8)"><img src="./static/images/reconstructions/images/5.png" /><span>Power Drill</span></button>
+                        <button class="results-thumb grasp-thumb" onclick="selectGraspObject(9)"><img src="./static/images/reconstructions/images/4.png" /><span>Spatula</span></button>
+                    </div>
+                    <button class="results-arrow" onclick="graspSlide(1)">&#8250;</button>
+                </div>
+            </div>
+
+            <div class="base-row add-top-padding">
+                <h2>Dexterous Grasps</h2>
+                <p class="paragraph">
+                    Each image shows a dexterous grasp executed on the reconstructed mesh.
+                    The overlay indicates whether the grasp succeeds when evaluated on the ground-truth mesh.
+                </p>
+            </div>
+
+            <!-- Dexterous: 2x2 images + GT viewer -->
+            <div class="results-main">
+                <div class="results-top">
+                    <div class="results-cell">
+                        <h3 class="results-label">Hunyuan3D</h3>
+                        <div class="dext-img-wrap">
+                            <img class="dext-img" id="dext-hunyuan"
+                                src="./static/images/dexterous/010_hunyuan.png" />
+                            <span class="dext-overlay" id="dext-overlay-hunyuan"></span>
+                        </div>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">InstantMesh</h3>
+                        <div class="dext-img-wrap">
+                            <img class="dext-img" id="dext-instantmesh"
+                                src="./static/images/dexterous/010_instantmesh.png" />
+                            <span class="dext-overlay" id="dext-overlay-instantmesh"></span>
+                        </div>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">TRELLIS</h3>
+                        <div class="dext-img-wrap">
+                            <img class="dext-img" id="dext-trellis"
+                                src="./static/images/dexterous/010_trellis.png" />
+                            <span class="dext-overlay" id="dext-overlay-trellis"></span>
+                        </div>
+                    </div>
+                    <div class="results-cell">
+                        <h3 class="results-label">TripoSR</h3>
+                        <div class="dext-img-wrap">
+                            <img class="dext-img" id="dext-triposr"
+                                src="./static/images/dexterous/010_triposr.png" />
+                            <span class="dext-overlay" id="dext-overlay-triposr"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="results-gt-section">
+                    <h3 class="results-label">Ground Truth</h3>
+                    <model-viewer class="results-viewer results-gt" id="dext-gt"
+                        src="./static/images/reconstructions/3/ground_truth.glb"
+                        camera-controls touch-action="pan-y" auto-rotate
+                        camera-orbit="45deg 55deg auto"></model-viewer>
+                </div>
+            </div>
+
+            <!-- Dexterous thumbnail slider -->
+            <div class="results-bottom">
+                <h3 class="results-label">Select an input image</h3>
+                <div class="results-thumb-area">
+                    <button class="results-arrow" onclick="dextSlide(-1)">&#8249;</button>
+                    <div class="results-thumb-scroll" id="dext-thumb-scroll">
+                        <button class="results-thumb dext-thumb active-dext-thumb" onclick="selectDextObject(0)"><img src="./static/images/reconstructions/images/3.png" /><span>Potted Meat</span></button>
+                        <button class="results-thumb dext-thumb" onclick="selectDextObject(1)"><img src="./static/images/reconstructions/images/4.png" /><span>Spatula</span></button>
+                        <button class="results-thumb dext-thumb" onclick="selectDextObject(2)"><img src="./static/images/reconstructions/images/5.png" /><span>Power Drill</span></button>
+                        <button class="results-thumb dext-thumb" onclick="selectDextObject(3)"><img src="./static/images/reconstructions/images/7.png" /><span>Brick</span></button>
+                        <button class="results-thumb dext-thumb" onclick="selectDextObject(4)"><img src="./static/images/reconstructions/images/10.png" /><span>Cup (vC)</span></button>
+                    </div>
+                    <button class="results-arrow" onclick="dextSlide(1)">&#8250;</button>
+                </div>
+            </div>
+
+
+            <!-- ============================================================ -->
+            <!-- Citation -->
+            <!-- ============================================================ -->
+            <div class="citation add-top-padding">
+                <h1>Citation</h1>
+                <!-- TODO: Update citation with actual details -->
+                <pre id="codecell0">@inproceedings{scout2026,
+  &nbsp;title={Which Reconstruction Model Should a Robot Use? Routing Image-to-3D Models for Cost-Aware Robotic Manipulation},
+  &nbsp;author={TODO},
+  &nbsp;booktitle={TODO},
+  &nbsp;year={2026}
+}
+</pre>
+            </div>
+
+        </div>
+    </div>
+
+    <p style="text-align:left;font-size:small;padding: 1%;">
+        Source code for this page was adapted from <a href="https://www.lerf.io/">LERF</a> and
+        <a href="https://scenecomplete.github.io/">SceneComplete</a>.
+    </p>
+
+    <script>
+        // Make model-viewers square (height = width)
+        function makeViewersSquare() {
+            document.querySelectorAll('model-viewer.results-viewer').forEach(function(mv) {
+                mv.style.height = mv.offsetWidth + 'px';
+            });
+        }
+        makeViewersSquare();
+        window.addEventListener('resize', makeViewersSquare);
+
+        // SCOUT's routing choices per object
+        var scoutRoutes = {
+            0: 'viewer-instantmesh',
+            1: 'viewer-hunyuan',
+            2: 'viewer-triposr',
+            3: 'viewer-trellis',
+            4: 'viewer-trellis',
+            5: 'viewer-hunyuan',
+            6: 'viewer-instantmesh',
+            7: 'viewer-triposr',
+            8: 'viewer-instantmesh',
+            9: 'viewer-hunyuan',
+        };
+
+        // Preload all GLBs in background
+        var folders = ['1','2','3','4','5','6','7','8','9','10'];
+        var files = ['hunyuan_recon.glb','instantmesh_recon.glb','trellis_recon.glb','triposr_recon.glb','ground_truth.glb'];
+        var graspFiles = ['hunyuan_gt_grasps.glb','instantmesh_gt_grasps.glb','trellis_gt_grasps.glb','triposr_gt_grasps.glb'];
+        folders.forEach(function(f) {
+            files.forEach(function(file) {
+                var link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = './static/images/reconstructions/' + f + '/' + file;
+                document.head.appendChild(link);
+            });
+            graspFiles.forEach(function(file) {
+                var link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = './static/images/grasps_gt/' + f + '/' + file;
+                document.head.appendChild(link);
+            });
+        });
+
+        // Results thumbnails
+        var objectGt = ['ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb','ground_truth.glb'];
+        var folders = ['2','10','8','1','3','9','6','7','5','4'];
+        let currentObject = 0;
+        var methodLabels = {
+            'viewer-hunyuan': 'Hunyuan3D',
+            'viewer-instantmesh': 'InstantMesh',
+            'viewer-trellis': 'TRELLIS',
+            'viewer-triposr': 'TripoSR',
+        };
+
+        function selectObject(idx) {
+            var thumbs = document.querySelectorAll('.results-thumb');
+            thumbs[currentObject].classList.remove('active-thumb');
+            thumbs[idx].classList.add('active-thumb');
+            currentObject = idx;
+            var base = './static/images/reconstructions/' + folders[idx] + '/';
+            document.getElementById('viewer-hunyuan').setAttribute('src', base + 'hunyuan_recon.glb');
+            document.getElementById('viewer-instantmesh').setAttribute('src', base + 'instantmesh_recon.glb');
+            document.getElementById('viewer-trellis').setAttribute('src', base + 'trellis_recon.glb');
+            document.getElementById('viewer-triposr').setAttribute('src', base + 'triposr_recon.glb');
+            document.getElementById('viewer-gt').setAttribute('src', base + objectGt[idx]);
+
+            // Update routing highlights
+            var chosen = scoutRoutes[idx];
+            ['viewer-hunyuan', 'viewer-instantmesh', 'viewer-trellis', 'viewer-triposr'].forEach(function(id) {
+                var mv = document.getElementById(id);
+                var label = mv.closest('.results-cell').querySelector('.results-label');
+                mv.classList.remove('scout-chosen', 'scout-other');
+                if (id === chosen) {
+                    mv.classList.add('scout-chosen');
+                    label.innerHTML = methodLabels[id] + " <span class='scout-tag'>(SCOUT's choice)</span>";
+                } else {
+                    mv.classList.add('scout-other');
+                    label.innerHTML = methodLabels[id];
+                }
+            });
+        }
+        function resultsSlide(dir) {
+            document.getElementById('results-thumb-scroll').scrollBy({ left: dir * 160, behavior: 'smooth' });
+        }
+
+        // Apply initial routing highlights
+        selectObject(0);
+
+        // Grasp section
+        let currentGraspObject = 0;
+        var graspMethodLabels = {
+            'grasp-hunyuan': 'Hunyuan3D',
+            'grasp-instantmesh': 'InstantMesh',
+            'grasp-trellis': 'TRELLIS',
+            'grasp-triposr': 'TripoSR',
+        };
+        var graspRoutes = {
+            0: 'grasp-instantmesh',
+            1: 'grasp-hunyuan',
+            2: 'grasp-triposr',
+            3: 'grasp-trellis',
+            4: 'grasp-trellis',
+            5: 'grasp-hunyuan',
+            6: 'grasp-instantmesh',
+            7: 'grasp-triposr',
+            8: 'grasp-instantmesh',
+            9: 'grasp-hunyuan',
+        };
+
+        function selectGraspObject(idx) {
+            var thumbs = document.querySelectorAll('.grasp-thumb');
+            thumbs[currentGraspObject].classList.remove('active-grasp-thumb');
+            thumbs[idx].classList.add('active-grasp-thumb');
+            currentGraspObject = idx;
+            var base = './static/images/grasps_gt/' + folders[idx] + '/';
+            document.getElementById('grasp-hunyuan').setAttribute('src', base + 'hunyuan_gt_grasps.glb');
+            document.getElementById('grasp-instantmesh').setAttribute('src', base + 'instantmesh_gt_grasps.glb');
+            document.getElementById('grasp-trellis').setAttribute('src', base + 'trellis_gt_grasps.glb');
+            document.getElementById('grasp-triposr').setAttribute('src', base + 'triposr_gt_grasps.glb');
+
+            // Update routing highlights
+            var chosen = graspRoutes[idx];
+            ['grasp-hunyuan', 'grasp-instantmesh', 'grasp-trellis', 'grasp-triposr'].forEach(function(id) {
+                var mv = document.getElementById(id);
+                var label = mv.closest('.results-cell').querySelector('.results-label');
+                mv.classList.remove('scout-chosen', 'scout-other');
+                if (id === chosen) {
+                    mv.classList.add('scout-chosen');
+                    label.innerHTML = graspMethodLabels[id] + " <span class='scout-tag'>(SCOUT's choice)</span>";
+                } else {
+                    mv.classList.add('scout-other');
+                    label.innerHTML = graspMethodLabels[id];
+                }
+            });
+        }
+        selectGraspObject(0);
+
+        function graspSlide(dir) {
+            document.getElementById('grasp-thumb-scroll').scrollBy({ left: dir * 160, behavior: 'smooth' });
+        }
+
+        // Dexterous section
+        var dextGrasps = {
+            '010_hunyuan': 'Success when evaluated on GT',
+            '010_instantmesh': 'Failure when evaluated on GT',
+            '010_trellis': 'Success when evaluated on GT',
+            '010_triposr': 'Failure when evaluated on GT',
+            '033_hunyuan': 'Success when evaluated on GT',
+            '033_instantmesh': 'No valid grasps on reconstructed mesh',
+            '033_trellis': 'Failure when evaluated on GT',
+            '033_triposr': 'No valid grasps on reconstructed mesh',
+            '035_hunyuan': 'Success when evaluated on GT',
+            '035_instantmesh': 'Success when evaluated on GT',
+            '035_trellis': 'Failure when evaluated on GT',
+            '035_triposr': 'Failure when evaluated on GT',
+            '061_hunyuan': 'Failure when evaluated on GT',
+            '061_instantmesh': 'Failure when evaluated on GT',
+            '061_trellis': 'Failure when evaluated on GT',
+            '061_triposr': 'Success when evaluated on GT',
+            '065_hunyuan': 'Success when evaluated on GT',
+            '065_instantmesh': 'Success when evaluated on GT',
+            '065_trellis': 'Success when evaluated on GT',
+            '065_triposr': 'Failure when evaluated on GT',
+        };
+        var dextData = [
+            { prefix: '010', gtFolder: '3', route: 'dext-trellis' },
+            { prefix: '033', gtFolder: '4', route: 'dext-hunyuan' },
+            { prefix: '035', gtFolder: '5', route: 'dext-instantmesh' },
+            { prefix: '061', gtFolder: '7', route: 'dext-triposr' },
+            { prefix: '065', gtFolder: '10', route: 'dext-hunyuan' },
+        ];
+        var dextMethodLabels = {
+            'dext-hunyuan': 'Hunyuan3D',
+            'dext-instantmesh': 'InstantMesh',
+            'dext-trellis': 'TRELLIS',
+            'dext-triposr': 'TripoSR',
+        };
+        let currentDextObject = 0;
+        function selectDextObject(idx) {
+            var thumbs = document.querySelectorAll('.dext-thumb');
+            thumbs[currentDextObject].classList.remove('active-dext-thumb');
+            thumbs[idx].classList.add('active-dext-thumb');
+            currentDextObject = idx;
+            var p = dextData[idx].prefix;
+            document.getElementById('dext-hunyuan').setAttribute('src', './static/images/dexterous/' + p + '_hunyuan.png');
+            document.getElementById('dext-instantmesh').setAttribute('src', './static/images/dexterous/' + p + '_instantmesh.png');
+            document.getElementById('dext-trellis').setAttribute('src', './static/images/dexterous/' + p + '_trellis.png');
+            document.getElementById('dext-triposr').setAttribute('src', './static/images/dexterous/' + p + '_triposr.png');
+            document.getElementById('dext-gt').setAttribute('src', './static/images/reconstructions/' + dextData[idx].gtFolder + '/ground_truth.glb');
+
+            var chosen = dextData[idx].route;
+            var methods = ['hunyuan', 'instantmesh', 'trellis', 'triposr'];
+            methods.forEach(function(method) {
+                var id = 'dext-' + method;
+                var el = document.getElementById(id);
+                var label = el.closest('.results-cell').querySelector('.results-label');
+                if (id === chosen) {
+                    label.innerHTML = dextMethodLabels[id] + " <span class='scout-tag'>(SCOUT's choice)</span>";
+                } else {
+                    label.innerHTML = dextMethodLabels[id];
+                }
+                // Update overlay
+                var overlay = document.getElementById('dext-overlay-' + method);
+                var key = p + '_' + method;
+                var text = dextGrasps[key] || '';
+                overlay.textContent = text;
+                overlay.classList.remove('dext-success', 'dext-fail');
+                if (text.indexOf('Success') !== -1) {
+                    overlay.classList.add('dext-success');
+                } else {
+                    overlay.classList.add('dext-fail');
+                }
+            });
+        }
+        selectDextObject(0);
+        function dextSlide(dir) {
+            document.getElementById('dext-thumb-scroll').scrollBy({ left: dir * 160, behavior: 'smooth' });
+        }
+
+        // Carousel
+        const carousel = document.querySelector('.carousel-slider');
+        const slides = document.querySelectorAll('.experiment-slide');
+        let currentPosition = 0;
+
+        const leftButton = document.querySelector('.carousel-button.left');
+        leftButton.addEventListener('click', () => {
+            currentPosition = currentPosition - 1 < 0 ? slides.length - 1 : currentPosition - 1;
+            carousel.scrollTo({ left: slides[currentPosition].offsetLeft, behavior: 'smooth' });
+        });
+
+        const rightButton = document.querySelector('.carousel-button.right');
+        rightButton.addEventListener('click', () => {
+            currentPosition = currentPosition + 1 > slides.length - 1 ? 0 : currentPosition + 1;
+            carousel.scrollTo({ left: slides[currentPosition].offsetLeft, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
